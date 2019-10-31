@@ -1,0 +1,4 @@
+Talent Next - Azure for .NET Developer - S1
+
+https://docs.microsoft.com/en-us/dotnet/azure/
+
