@@ -1,0 +1,6 @@
+https://www.c-sharpcorner.com/article/create-and-consume-azure-function-from-asp-net-core/
+
+https://github.com/senthamizhdce/AzureFunction.git
+
+After publishing the function, we need to obtain keys. Keys are stored as part of your function app in Azure. To view your keys, navigate to one of your HTTP-triggered functions in the Azure portal and select Manage.
+https://azurefunction20191030040556.azurewebsites.net/api/LeaveRequestList?code=vaR48ayeC6AL247y177FYixEu1ZmeJdZ1tjAKuTpBkfpE/buJuOntQ==
