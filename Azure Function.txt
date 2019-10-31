@@ -1,0 +1,1 @@
+https://www.c-sharpcorner.com/article/create-and-consume-azure-function-from-asp-net-core/
