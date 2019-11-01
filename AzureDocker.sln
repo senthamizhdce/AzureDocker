@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureApp", "AzureApp\AzureA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicrosoftGraphSDK", "MicrosoftGraphSDK\MicrosoftGraphSDK.csproj", "{797476E4-9711-4D73-9FD3-EB942969745B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreSqlDb", "DotNetCoreSQLDB\DotNetCoreSqlDb.csproj", "{DE9928B1-BCFC-42C0-AC16-2670E1741BF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreSqlDb", "DotNetCoreSQLDB\DotNetCoreSqlDb.csproj", "{E93152B4-C0A7-4411-A173-66837CFDF06E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{797476E4-9711-4D73-9FD3-EB942969745B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{797476E4-9711-4D73-9FD3-EB942969745B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{797476E4-9711-4D73-9FD3-EB942969745B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DE9928B1-BCFC-42C0-AC16-2670E1741BF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DE9928B1-BCFC-42C0-AC16-2670E1741BF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DE9928B1-BCFC-42C0-AC16-2670E1741BF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DE9928B1-BCFC-42C0-AC16-2670E1741BF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E93152B4-C0A7-4411-A173-66837CFDF06E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E93152B4-C0A7-4411-A173-66837CFDF06E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E93152B4-C0A7-4411-A173-66837CFDF06E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E93152B4-C0A7-4411-A173-66837CFDF06E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
