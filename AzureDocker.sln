@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureApp", "AzureApp\AzureA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicrosoftGraphSDK", "MicrosoftGraphSDK\MicrosoftGraphSDK.csproj", "{797476E4-9711-4D73-9FD3-EB942969745B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreSqlDb", "DotNetCoreSQLDB\DotNetCoreSqlDb.csproj", "{6FA8E157-1A27-4778-8478-F5861BF84633}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{797476E4-9711-4D73-9FD3-EB942969745B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{797476E4-9711-4D73-9FD3-EB942969745B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{797476E4-9711-4D73-9FD3-EB942969745B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FA8E157-1A27-4778-8478-F5861BF84633}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FA8E157-1A27-4778-8478-F5861BF84633}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FA8E157-1A27-4778-8478-F5861BF84633}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FA8E157-1A27-4778-8478-F5861BF84633}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
