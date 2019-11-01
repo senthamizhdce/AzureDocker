@@ -1,0 +1,22 @@
+
+Build an ASP.NET Core and SQL Database app in Azure App Service
+
+https://docs.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb
+
+Create a SQL Database in Azure
+Connect a .NET Core app to SQL Database
+Deploy the app to Azure
+Update the data model and redeploy the app
+Stream diagnostic logs from Azure
+Manage the app in the Azure portal
+
+git clone https://github.com/azure-samples/dotnetcore-sqldb-tutorial
+cd dotnetcore-sqldb-tutorial
+dotnet restore  //NuGet to restore dependencies as well as project-specific tools
+dotnet ef database update - not working in VS 2017 use PM > update-database
+dotnet run
+
+VS 2017 PM >
+PM>update-database
+
+18001233330 - 1399
