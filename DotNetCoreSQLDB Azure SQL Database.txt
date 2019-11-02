@@ -1,7 +1,8 @@
-
+---------------------------------------------------------------
 Build an ASP.NET Core and SQL Database app in Azure App Service
-
-https://docs.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb
+---------------------------------------------------------------
+Azure CLI - https://docs.microsoft.com/en-us/cli/azure/webapp/config/appsettings?view=azure-cli-latest#az-webapp-config-appsettings-set
+          - https://docs.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb
 
 Create a SQL Database in Azure
 Connect a .NET Core app to SQL Database
@@ -19,4 +20,293 @@ dotnet run
 VS 2017 PM >
 PM>update-database
 
-18001233330 - 1399
+For Cloud DataBase SQL Production
+
+//Cloud Shell lets you use either Bash or PowerShell to work with Azure services
+https://shell.azure.com/
+https://shell.azure.com/?prompt=True
+PS Azure:\>
+
+senthamizh@Azure:~$ az group create --name myResourceGroup --location "West Europe"
+
+senthamizh@Azure:~$ az sql server create --name sql-cloud-db --resource-group myResourceGroup --location "West Europe" --admin-user sqladmin --admin-password tamil@123456
+{
+  "administratorLogin": "sqladmin",
+  "administratorLoginPassword": null,
+  "fullyQualifiedDomainName": "sql-cloud-db.database.windows.net",
+  "id": "/subscriptions/7d672929-16b7-45dc-ac8e-dfed445796f2/resourceGroups/myResourceGroup/providers/Microsoft.Sql/servers/sql-cloud-db",
+  "identity": null,
+  "kind": "v12.0",
+  "location": "westeurope",
+  "name": "sql-cloud-db",
+  "resourceGroup": "myResourceGroup",
+  "state": "Ready",
+  "tags": null,
+  "type": "Microsoft.Sql/servers",
+  "version": "12.0"
+}
+
+senthamizh@Azure:~$ az sql server firewall-rule create --resource-group myResourceGroup --server sql-cloud-db --nameAllowAllIps --start-ip-address 0.0.0.0 --end-ip-address 0.0.0.0
+{
+  "endIpAddress": "0.0.0.0",
+  "id": "/subscriptions/7d672929-16b7-45dc-ac8e-dfed445796f2/resourceGroups/myResourceGroup/providers/Microsoft.Sql/servers/sql-cloud-db/firewallRules/AllowAllIps",
+  "kind": "v12.0",
+  "location": "West Europe",
+  "name": "AllowAllIps",
+  "resourceGroup": "myResourceGroup",
+  "startIpAddress": "0.0.0.0",
+  "type": "Microsoft.Sql/servers/firewallRules"
+}
+
+senthamizh@Azure:~$ az sql db create --resource-group myResourceGroup --server sql-cloud-db --name coreDB --service-objective S0
+{
+  "autoPauseDelay": null,
+  "catalogCollation": "SQL_Latin1_General_CP1_CI_AS",
+  "collation": "SQL_Latin1_General_CP1_CI_AS",
+  "createMode": null,
+  "creationDate": "2019-11-02T13:36:51.737000+00:00",
+  "currentServiceObjectiveName": "S0",
+  "currentSku": {
+    "capacity": 10,
+    "family": null,
+    "name": "Standard",
+    "size": null,
+    "tier": "Standard"
+  },
+  "databaseId": "295ef77a-0a69-4559-9c73-faf8605bae8e",
+  "defaultSecondaryLocation": "northeurope",
+  "earliestRestoreDate": "2019-11-02T14:06:51.737000+00:00",
+  "edition": "Standard",
+  "elasticPoolId": null,
+  "elasticPoolName": null,
+  "failoverGroupId": null,
+  "id": "/subscriptions/7d672929-16b7-45dc-ac8e-dfed445796f2/resourceGroups/myResourceGroup/providers/Microsoft.Sql/servers/sql-cloud-db/databases/coreDB",
+  "kind": "v12.0,user",
+  "licenseType": null,
+  "location": "westeurope",
+  "longTermRetentionBackupResourceId": null,
+  "managedBy": null,
+  "maxLogSizeBytes": null,
+  "maxSizeBytes": 268435456000,
+  "minCapacity": null,
+  "name": "coreDB",
+  "pausedDate": null,
+  "readReplicaCount": 0,
+  "readScale": "Disabled",
+  "recoverableDatabaseId": null,
+  "recoveryServicesRecoveryPointId": null,
+  "requestedServiceObjectiveName": "S0",
+  "resourceGroup": "myResourceGroup",
+  "restorableDroppedDatabaseId": null,
+  "restorePointInTime": null,
+  "resumedDate": null,
+  "sampleName": null,
+  "sku": {
+    "capacity": 10,
+    "family": null,
+    "name": "Standard",
+    "size": null,
+    "tier": "Standard"
+  },
+  "sourceDatabaseDeletionDate": null,
+  "sourceDatabaseId": null,
+  "status": "Online",
+  "tags": null,
+  "type": "Microsoft.Sql/servers/databases",
+  "zoneRedundant": false
+}
+-----------------
+Connection String
+-----------------
+Server=tcp:<server_name>.database.windows.net,1433;Database=coreDB;User ID=<db_username>;Password=<db_password>;Encrypt=true;Connection Timeout=30;
+Server=tcp:sql-cloud-db.database.windows.net,1433;Database=coreDB;User ID=<db_username>;Password=<db_password>;Encrypt=true;Connection Timeout=30;
+
+----------------------------------------------------
+Deploy app to Azure - Configure local git deployment
+----------------------------------------------------
+az webapp deployment user set --user-name <username> --password <password>
+senthamizh@Azure:~$ az webapp deployment user set --user-name senthamizhLCS --password tamil@123456
+{
+  "id": null,
+  "kind": null,
+  "name": "web",
+  "publishingPassword": null,
+  "publishingPasswordHash": null,
+  "publishingPasswordHashSalt": null,
+  "publishingUserName": "senthamizhLCS",
+  "scmUri": null,
+  "type": "Microsoft.Web/publishingUsers/web"
+}
+
+--------------------------
+Create an App Service Plan
+--------------------------
+az appservice plan create --name myAppServicePlan --resource-group myResourceGroup --sku FREE
+senthamizh@Azure:~$ az appservice plan create --name myAppServicePlan --resource-group myResourceGroup --sku FREE
+{
+  "freeOfferExpirationTime": null,
+  "geoRegion": "West Europe",
+  "hostingEnvironmentProfile": null,
+  "hyperV": false,
+  "id": "/subscriptions/7d672929-16b7-45dc-ac8e-dfed445796f2/resourceGroups/myResourceGroup/providers/Microsoft.Web/serverfarms/myAppServicePlan",
+  "isSpot": false,
+  "isXenon": false,
+  "kind": "app",
+  "location": "West Europe",
+  "maximumElasticWorkerCount": 1,
+  "maximumNumberOfWorkers": 1,
+  "name": "myAppServicePlan",
+  "numberOfSites": 0,
+  "perSiteScaling": false,
+  "provisioningState": "Succeeded",
+  "reserved": false,
+  "resourceGroup": "myResourceGroup",
+  "sku": {
+    "capabilities": null,
+    "capacity": 0,
+    "family": "F",
+    "locations": null,
+    "name": "F1",
+    "size": "F1",
+    "skuCapacity": null,
+    "tier": "Free"
+  },
+  "spotExpirationTime": null,
+  "status": "Ready",
+  "subscription": "7d672929-16b7-45dc-ac8e-dfed445796f2",
+  "tags": null,
+  "targetWorkerCount": 0,
+  "targetWorkerSizeId": 0,
+  "type": "Microsoft.Web/serverfarms",
+  "workerTierName": null
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------
+Create a Web App - az webapp create --resource-group myResourceGroup --plan myAppServicePlan --name <app-name> --deployment-local-git
+-------------------------------------------------------------------------------------------------------------------------------------
+senthamizh@Azure:~$ az webapp create --resource-group myResourceGroup --plan myAppServicePlan --name SenthamizhSQLApp --deployment-local-git
+Local git is configured with url of 'https://senthamizhLCS@senthamizhsqlapp.scm.azurewebsites.net/SenthamizhSQLApp.git'
+{
+  "availabilityState": "Normal",
+  "clientAffinityEnabled": true,
+  "clientCertEnabled": false,
+  "clientCertExclusionPaths": null,
+  "cloningInfo": null,
+  "containerSize": 0,
+  "dailyMemoryTimeQuota": 0,
+  "defaultHostName": "senthamizhsqlapp.azurewebsites.net",
+  "deploymentLocalGitUrl": "https://senthamizhLCS@senthamizhsqlapp.scm.azurewebsites.net/SenthamizhSQLApp.git",
+  "enabled": true,
+  "enabledHostNames": [
+    "senthamizhsqlapp.azurewebsites.net",
+    "senthamizhsqlapp.scm.azurewebsites.net"
+  ],
+  "ftpPublishingUrl": "ftp://waws-prod-am2-173.ftp.azurewebsites.windows.net/site/wwwroot",
+  "geoDistributions": null,
+  "hostNameSslStates": [
+    {
+      "hostType": "Standard",
+      "ipBasedSslResult": null,
+      "ipBasedSslState": "NotConfigured",
+      "name": "senthamizhsqlapp.azurewebsites.net",
+      "sslState": "Disabled",
+      "thumbprint": null,
+      "toUpdate": null,
+      "toUpdateIpBasedSsl": null,
+      "virtualIp": null
+    },
+    {
+      "hostType": "Repository",
+      "ipBasedSslResult": null,
+      "ipBasedSslState": "NotConfigured",
+      "name": "senthamizhsqlapp.scm.azurewebsites.net",
+      "sslState": "Disabled",
+      "thumbprint": null,
+      "toUpdate": null,
+      "toUpdateIpBasedSsl": null,
+      "virtualIp": null
+    }
+  ],
+  "hostNames": [
+    "senthamizhsqlapp.azurewebsites.net"
+  ],
+  "hostNamesDisabled": false,
+  "hostingEnvironmentProfile": null,
+  "httpsOnly": false,
+  "hyperV": false,
+  "id": "/subscriptions/7d672929-16b7-45dc-ac8e-dfed445796f2/resourceGroups/myResourceGroup/providers/Microsoft.Web/sites/SenthamizhSQLApp",
+  "identity": null,
+  "inProgressOperationId": null,
+  "isDefaultContainer": null,
+  "isXenon": false,
+  "kind": "app",
+  "lastModifiedTimeUtc": "2019-11-02T14:45:59.620000",
+  "location": "West Europe",
+  "maxNumberOfWorkers": null,
+  "name": "SenthamizhSQLApp",
+  "outboundIpAddresses": "52.166.181.85,52.166.142.223,52.166.176.207,52.166.182.189,52.166.181.35",
+  "possibleOutboundIpAddresses": "52.166.181.85,52.166.142.223,52.166.176.207,52.166.182.189,52.166.181.35,52.166.139.57,13.95.148.144",
+  "redundancyMode": "None",
+  "repositorySiteName": "SenthamizhSQLApp",
+  "reserved": false,
+  "resourceGroup": "myResourceGroup",
+  "scmSiteAlsoStopped": false,
+  "serverFarmId": "/subscriptions/7d672929-16b7-45dc-ac8e-dfed445796f2/resourceGroups/myResourceGroup/providers/Microsoft.Web/serverfarms/myAppServicePlan",
+  "siteConfig": null,
+  "slotSwapStatus": null,
+  "state": "Running",
+  "suspendedTill": null,
+  "tags": null,
+  "targetSwapSlot": null,
+  "trafficManagerHostNames": null,
+  "type": "Microsoft.Web/sites",
+  "usageState": "Normal"
+}
+---------------------------------------------------------------------------------
+https://github.com/projectkudu/kudu/wiki
+https://senthamizhLCS@senthamizhsqlapp.scm.azurewebsites.net
+https://senthamizhLCS@senthamizhsqlapp.scm.azurewebsites.net/SenthamizhSQLApp.git
+---------------------------------------------------------------------------------
+
+---------------------------
+Configure connection string 
+---------------------------
+az webapp config connection-string set --resource-group myResourceGroup --name <app name> --settings MyDbConnection="<connection_string>" --connection-string-type SQLServer
+az webapp config connection-string set --resource-group myResourceGroup --name senthamizhsqlapp --settings MyDbConnection="Server=tcp:sql-cloud-db.database.windows.net,1433;Database=coreDB;User ID=sqladmin;Password=tamil@123456;Encrypt=true;Connection Timeout=30;" --connection-string-type SQLServer
+senthamizh@Azure:~$ az webapp config connection-string set --resource-group myResourceGroup --name senthamizhsqlapp --settings MyDbConnection="Server=tcp:sql-cloud-db.database.windows.net,1433;Database=coreDB;User ID=sqladmin;Password=tamil@123456;Encrypt=true;Connection Timeout=30;" --connection-string-type SQLServer
+{
+  "MyDbConnection": {
+    "type": "SQLServer",
+    "value": "Server=tcp:sql-cloud-db.database.windows.net,1433;Database=coreDB;User ID=sqladmin;Password=tamil@123456;Encrypt=true;Connection Timeout=30;"
+  }
+}
+
+------------------------------
+Configure environment variable
+------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
