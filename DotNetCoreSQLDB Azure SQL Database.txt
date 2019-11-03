@@ -284,7 +284,21 @@ senthamizh@Azure:~$ az webapp config connection-string set --resource-group myRe
 ------------------------------
 Configure environment variable
 ------------------------------
-
+az webapp config appsettings set --name <app_name> --resource-group myResourceGroup --settings ASPNETCORE_ENVIRONMENT="Production"
+az webapp config appsettings set --name senthamizhsqlapp --resource-group myResourceGroup --settings ASPNETCORE_ENVIRONMENT="Production"
+senthamizh@Azure:~$ az webapp config appsettings set --name senthamizhsqlapp --resource-group myResourceGroup --settings ASPNETCORE_ENVIRONMENT="Production"
+[
+  {
+    "name": "WEBSITE_NODE_DEFAULT_VERSION",
+    "slotSetting": false,
+    "value": "10.14"
+  },
+  {
+    "name": "ASPNETCORE_ENVIRONMENT",
+    "slotSetting": false,
+    "value": "Production"
+  }
+]
 
 
 
